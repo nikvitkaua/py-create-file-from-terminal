@@ -11,7 +11,6 @@ def create_file() -> None:
             key_dir_index = user_input.index("-d")
             key_file_index = user_input.index("-f")
             path_way = "/".join(user_input[key_dir_index + 1 : key_file_index])
-            print(path_way)
             os.makedirs(path_way, exist_ok=True)
             os.chdir(path_way)
 
