@@ -3,25 +3,15 @@ import os
 from datetime import datetime
 
 
-class OrderError(Exception):
-    """Raise when order of command is incorrect"""
-
-
 def create_file() -> None:
     try:
         user_input = sys.argv
 
-        if "-d" in user_input and "-f" in user_input:
-            if user_input.index("-d") > user_input.index("-f"):
-                raise OrderError(
-                    "Command must be like:"
-                    "'python create_file.py"
-                    "-d {dir_name or path} -f {file_name}'"
-                )
-
         if "-d" in user_input:
             key_dir_index = user_input.index("-d")
-            path_way = user_input[key_dir_index + 1]
+            key_file_index = user_input.index("-f")
+            path_way = "/".join(user_input[key_dir_index + 1 : key_file_index])
+            print(path_way)
             os.makedirs(path_way, exist_ok=True)
             os.chdir(path_way)
 
@@ -38,6 +28,7 @@ def create_file() -> None:
                     new_line = input("Enter content line: ")
 
                     if new_line == "stop":
+                        file.write("\n")
                         asking_user = False
                         break
 
